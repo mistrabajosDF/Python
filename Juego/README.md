@@ -9,7 +9,7 @@ Matploblib (Librería de Python para creación de gráficas).
 Numpy (Librería de Python para calculo numérico y análisis de datos).
 PySimpleGUI.
 
-##Descripción:
+## Descripción:
 Aplicación que simula el juego de mesa de la memoria, que consiste en encontrar pares de fichas iguales.
 Opciones de personalización: Cantidad de coincidencias (Dos, tres o cuatro), tamaño del tablero, tiempo límite, frases a mostrar en determinadas situaciones y paleta de colores. 
 Generación de estadísticas
