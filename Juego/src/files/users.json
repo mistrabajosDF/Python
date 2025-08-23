@@ -1,0 +1,41 @@
+{
+    "AA": {
+        "Gender": "Masculino",
+        "Age": "45",
+        "Level": "6x4",
+        "Time": "2",
+        "Match": "2",
+        "Elem": "Palabras",
+        "Help": "No",
+        "Theme": "Tema 3",
+        "TxtWin": "Felicitaciones, ganaste",
+        "TxtLose": "Perdiste, volve a intentar",
+        "TxtTime": "Cuidado, te queda poco tiempo"
+    },
+    "BB": {
+        "Gender": "Masculino",
+        "Age": "23",
+        "Level": "6x4",
+        "Time": "2",
+        "Match": "2",
+        "Elem": "Imagenes",
+        "Help": "No",
+        "Theme": "Noche",
+        "TxtWin": "Felicitaciones, ganaste",
+        "TxtLose": "Perdiste, volve a intentar",
+        "TxtTime": "Cuidado, te queda poco tiempo"
+    },
+    "Usuario1": {
+        "Gender": "Femenino",
+        "Age": "30",
+        "Level": "6x4",
+        "Time": "5",
+        "Match": "2",
+        "Elem": "Palabras",
+        "Help": "No",
+        "Theme": "Dia",
+        "TxtWin": "Felicitaciones, ganaste",
+        "TxtLose": "Perdiste, volve a intentar",
+        "TxtTime": "Cuidado, te queda poco tiempo"
+    }
+}
