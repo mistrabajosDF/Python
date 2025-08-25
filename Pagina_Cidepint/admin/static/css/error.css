@@ -1,0 +1,25 @@
+body{
+    font-family: Helvetica, Sans-Serif;
+    background-color: #dce5ede4;
+}
+
+.error {
+    font-size: 8rem;
+    margin-left: 2rem;
+    color: rgba(33, 12, 37, 0.604); 
+}
+
+.err_desc {
+    font-size: 2rem;
+    text-align: center;
+}
+
+.content-container {
+    margin-top: 2rem;
+    text-align: center;
+    filter: drop-shadow(0 0 0.6rem  rgba(132, 47, 146, 0.604));
+}
+
+.content-bottom {
+    color: #3E0063;
+}

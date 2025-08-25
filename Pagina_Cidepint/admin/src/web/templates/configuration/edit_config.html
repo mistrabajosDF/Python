@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+{% block title %}Editar Configuración{% endblock %}
+
+{% block content %}
+<div class="container py-5 justify-content-center">
+<h1><strong>Configuración de sistema</strong></h1>
+<div class="link-container">
+    <a href="{{ url_for('home') }}" class="more-link">Ir al Inicio</a>
+</div>
+
+<h4><strong>Editar Configuración</strong></h4>
+<form action="{{ url_for('configuration.update')}}" method="post">
+
+    <input type="hidden" name="id" value="1" readonly>
+
+    <h6>Ítems por página:</h6>
+    <input type="number" name="items" value="{{ configuration.items_por_pagina }}" maxlength="20" size="35">
+
+    <h6>Información de contacto:</h6>
+    <input type="text" name="contacto" value="{{ configuration.info_contacto }}" maxlength="50" size="35">
+
+    <h6>Mensaje de mantenimiento:</h6>
+    <input type="text" name="mensaje" value="{{ configuration.mantenimiento_mensaje }}" maxlength="50" size="35">
+
+    <h6>Estado del sitio:</h6>
+    <select name="mantenimiento">
+        <option value="" {% if configuration.mantenimiento_modo is none %}selected{% endif %}>Selecciona</option>
+        <option value="False" {% if not configuration.mantenimiento_modo %}selected{% endif %}>Habilitado</option>
+        <option value="True" {% if configuration.mantenimiento_modo %}selected{% endif %}>Deshabilitado</option>
+    </select>
+
+    <br/><br/>
+    <button class="btn btn-info">Editar</button>
+</form>
+<br/>
+</div>
+
+{% endblock %}

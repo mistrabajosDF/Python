@@ -1,0 +1,74 @@
+{% extends "layout.html" %}
+
+{% block title %}Registro{% endblock %}
+{% block head %}
+    {{ super() }}
+{% endblock %}
+
+{% block header %}{% endblock %}
+
+{% block content %}
+<div class="container_form">
+    <div class="volver">
+        <a href="{{ url_for('home')}}"><img src="{{ url_for('static', filename='images/logo_cuadrado.png') }}" alt="logo" width="60"></a>
+        <p>Volver</p>
+    </div>
+
+    <div class="formulario">
+        <div class="titulo">Registrate</div>
+
+        <form action="{{ url_for('register.register_user') }}" method="post">
+            <div class="row mb-3 input_form">
+                <label for="emailAddress" class="col-sm-5 col-form-label">Email</label>
+                <div class="col-sm-7">
+                    <input class="form-control" id="emailAddress" type="email" name="email" required />
+                </div>
+            </div>
+
+            <div class="row mb-3 input_form">
+                <label for="username" class="col-sm-5 col-form-label">Nombre de usuario</label>
+                <div class="col-sm-7">
+                    <input type="text" name="username" class="form-control" id="username" placeholder="" required>
+                </div>
+            </div>
+
+
+            <div class="row mb-3 input_form">
+                <label for="name" class="col-sm-2 col-form-label">Nombre</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="name" name="name" required />
+                </div>
+                <label for="surname" class="col-sm-2 col-form-label">Apellido</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="surname" name="surname" required />
+                </div>
+            </div>
+
+
+            <div class="formulario_login_aviso_contraseña">
+                <i class="fas fa-info-circle" style="color: #46389f;"></i>
+                La contraseña debe tener como mínimo 8 carácteres, al menos una letra mayúscula, una letra minúscula, y un número.
+            </div>
+
+            <div class="row mb-3 input_form">
+                <label for="password" class="col-sm-5 col-form-label">Contraseña</label>
+                <div class="col-sm-7">
+                    <input type="password" class="form-control" id="password" name="password" placeholder="" required>
+                </div>
+            </div>
+            <div class="row mb-3 input_form">
+                <label for="password2" class="col-sm-5 col-form-label">Repetir contraseña</label>
+                <div class="col-sm-7">
+                    <input type="password" class="form-control" id="password2" name="password2" placeholder="" required>
+                </div>
+            </div>
+
+            <input type="hidden" name="source" value="{{ source }}">
+            <input class="btn btn-primary button" type="submit" value="Registrarme" />
+        </form>
+
+<script src="https://kit.fontawesome.com/cfbbd3b798.js" crossorigin="anonymous"></script>
+
+{% endblock %}
+
+{% block footer %}{% endblock %}

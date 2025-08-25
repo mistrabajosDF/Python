@@ -1,0 +1,86 @@
+{% extends "layout.html" %}
+{% block title %}Servicios{% endblock %}
+
+{% block content %}
+<div class="container py-5 justify-content-center">
+<h1><strong>Servicios</strong></h1>
+<div class="link-container">
+    <a href="{{ url_for('institutions.home', id_institucion=institucion_actual.id) }}" class="more-link">Ir atras</a>
+</div>
+<br/>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Descripción</th>
+            <th scope="col">Tipo</th>
+            <th scope="col">Habilitado</th>
+            <th scope="col">Palabras clave</th>
+            <th scope="col">Centros</th>
+            <th scope="col">Eliminar</th>
+            <th scope="col">Editar</th>
+        </tr>
+    </thead>
+    <tbody>  
+        {% for service in services %}
+        <tr>
+            <th>{{ service.id }}</th>
+            <td>{{ service.nombre }}</td>
+            <td>{{ service.descripcion }}</td>
+            <td>{{ service.tipo }}</td>
+            <td>{{ service.habilitado }}</td>
+            <td>{% for palabra in service.palabras_clave %}
+                <li><a> {{ palabra.name }} </a></li>
+            {% endfor %}
+            </td>
+            <td>{% for centro in service.centrosACargo %}
+                <li><a> {{ centro.nombre }} </a></li>
+            {% endfor %}
+            </td>
+            <td><a
+                    href="{{ url_for('services.delete', id = service.id, id_institucion=institucion_actual.id) }}" onclick="return confirm('¿Desea eliminar el servicio?')">
+                <button class="btn btn-danger" name="Eliminar">Eliminar</button></a>
+            </td>
+            <td><a
+                    href="{{ url_for('services.updatea', id = service.id, id_institucion=institucion_actual.id) }}">
+                    <button class="btn btn-info" name="Editar">Editar</button></a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+    {% set p = page | int %}
+    {% if (p>1) %}
+        <a href="{{ url_for('services.index', page=page-1, id_institucion=institucion_actual.id) }}">
+        <button class="btn btn-info" name="Anterior">Anterior</button></a>
+    {% endif %}
+
+    <a href="{{ url_for('services.index', page=page+1, id_institucion=institucion_actual.id) }}">
+    <button class="btn btn-info" name="Siguiente">Siguiente</button></a>
+<br/>
+<h4><strong>Añadir servicio</strong></h4>
+<form action="{{ url_for('services.add', id_institucion=institucion_actual.id)}}" method="post">
+    <input type="hidden" name="centro" value="{{institucion_actual.id}}" size="7" readonly>
+    <input type="text" name="nombre" placeholder="Ingrese el nombre" required flask>
+    <input type="text" name="descripcion" placeholder="Ingrese la descripcion" maxlength="100">
+    <input type="text" name="palabrasclave" placeholder="Ingrese palabras claves separadas con coma" size="35">
+    <br/>
+    <h6>Tipo</h6>
+    <select name="tipo">
+        <option value="" selected>Selecciona</option>
+        <option value="Analisis">Análisis</option>
+        <option value="Consultoria">Consultoría</option>
+        <option value="Desarrollo">Desarrollo</option>
+    </select>
+    <br/>
+    <h6>Estado</h6>
+    <select name="habilitado">
+        <option value="True" selected>Habilitado</option>
+        <option value="False">Deshabilitado</option>
+    </select>
+<button class="btn btn-info"> Añadir</button>
+</form>
+    <br/>
+</div>
+{% endblock %}

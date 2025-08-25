@@ -1,0 +1,86 @@
+{% extends "layout.html" %}
+
+{% block head %}
+    {{ super() }}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{{ url_for('static', filename='js/request_notes.js') }}"></script>
+{% endblock %}
+
+
+{% block title %}Detalle de solicitud{% endblock %}
+
+{% block content %}
+<div class="container py-5 justify-content-center">
+    <h1>Detalle solicitud {{ solicitud.id }}</h1>
+    <div class="link-container">
+        <a href="{{ url_for('solicitudes.index', id_institucion=institucion_actual.id)}}" class="more-link">Volver</a>
+    </div>
+
+    <br/>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Cliente</th>
+                <th scope="col">Tipo Servicio</th>
+                <th scope="col">Observaciones del cliente</th>
+                <th scope="col">Estado</th>
+                <th scope="col">Modificar estado</th>
+                <th scope="col">Notas</th>
+                <th scope="col">Agregar nota</th>
+                <th scope="col">Fecha Modificación</th>
+                <th scope="col">Fecha Solicitud</th>
+                <th scope="col">Eliminar</th>
+            </tr>
+        </thead>
+        <tbody>
+                <tr>
+                    <th>{{ solicitud.id }}</th>
+                    <td>{{ solicitud.user.nombre }} {{ solicitud.user.apellido }}</td>
+                    <td>{{ solicitud.service.tipo }}</td>
+                    <td>{{ solicitud.observation }}</td>
+
+                    <td>{{ solicitud.status }}</td>
+                    <td>
+                        <form method="POST" action="{{ url_for('solicitudes.actualizar_estado', id_institucion=institucion_actual.id) }}">
+                            <select name="status" id="status">
+                                <option selected value="">Seleccionar</option>
+                                <option value="Aceptada">Aceptar</option>
+                                <option value="Rechazada">Rechazar</option>
+                                <option value="En proceso">En proceso</option>
+                                <option value="Finalizada">Finalizar</option>
+                                <option value="Cancelada">Cancelar</option>
+                            </select>
+                            <input type="hidden" name="id_solicitud" value="{{ solicitud.id }}">
+                            <input type="hidden" name="id_institucion" value="{{ institucion_actual.id }}">
+                            <input type="text" name="obs_est_act" placeholder="Ingrese observacion" maxlength="100">
+                            <input class="btn btn-info" type="submit" value="Cambiar">
+                        </form>
+                    </td>
+
+                    <td>{% for nota in notas %}
+                        <li><a> {{ nota.description }} </a></li>
+                    {% endfor %}
+
+                    <td>
+                        <form method="POST" action="{{ url_for('solicitudes.agregar_nota', id_institucion=institucion_actual.id) }}">
+                            <input type="hidden" name="id_solicitud" value="{{ solicitud.id }}">
+                            <input type="hidden" name="id_institucion" value="{{ institucion_actual.id }}">
+                            <input type="text" name="nota_nueva" placeholder="Ingrese nota" size="20" maxlength="250">
+                            <button class="btn btn-info">Añadir</button>
+                        </form>
+                    </td>
+
+                    <td>{{ solicitud.change_status_date }}</td>
+                    <td>{{ solicitud.request_date }}</td>
+                    <td><a
+                        href="{{ url_for('solicitudes.delete', id = solicitud.id, id_institucion = institucion_actual.id) }}" onclick="return confirm('¿Desea eliminar la Solicitud?')">
+                        <button class="btn btn-danger" name="Eliminar">Eliminar</button></a>
+                    </td>
+                </tr>
+        </tbody>
+    </table>
+</div>
+<br/>
+<br/>
+{% endblock %}

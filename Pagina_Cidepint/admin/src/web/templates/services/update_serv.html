@@ -1,0 +1,68 @@
+{% extends "layout.html" %}
+{% block title %}Servicios{% endblock %}
+
+{% block content %}
+<div class="container py-5 justify-content-center">
+
+  <h1><strong>Editar servicio</strong></h1>
+  <div class="link-container">
+    <a href="{{ url_for('services.index', id_institucion=institucion_actual.id) }}" class="more-link">Ir atrás</a>
+  </div>
+
+  <br/>
+  <form action="{{ url_for('services.update', id_institucion=institucion_actual.id)}}" method="post">
+
+    <input type="hidden" name="id" value="{{ service.id }}">
+    <input type="hidden" name="centroid" value="{{ institucion_actual.id }}">
+
+    <label for="centro"><strong>Centro a cargo</strong></label>
+    <input type="text" id="centro" name="centro" value="{{ institucion_actual.nombre }}" class="form-control" readonly>
+
+    <br/>
+    <h6>Complete los campos que desea modificar:</h6>
+
+    <label for="nombre"><strong>Nombre</strong></label>
+    <input type="text" id="nombre" name="nombre" value="{{ service.nombre }}" maxlength="50" class="form-control">
+
+    <label for="descripcion"><strong>Descripción</strong></label>
+    <input type="text" id="descripcion" name="descripcion" value="{{ service.descripcion }}" maxlength="100" class="form-control">
+
+    <label for="palabrasclave"><strong>Palabras clave</strong></label>
+    <small class="form-text text-muted">Ingrese palabras claves separadas con coma</small>
+    <input type="text" id="palabrasclave" name="palabrasclave" placeholder="ej: salud, educación, cultura" size="35" class="form-control">
+
+    <br/>
+    <label for="tipo"><strong>Tipo</strong></label>
+    <select id="tipo" name="tipo" class="form-control">
+      <option value="" {% if not service.tipo %}selected{% endif %}>Selecciona...</option>
+      <option value="Analisis" {% if service.tipo == "Analisis" %}selected{% endif %}>Análisis</option>
+      <option value="Consultoria" {% if service.tipo == "Consultoria" %}selected{% endif %}>Consultoría</option>
+      <option value="Desarrollo" {% if service.tipo == "Desarrollo" %}selected{% endif %}>Desarrollo</option>
+    </select>
+
+    <br/>
+    <label for="habilitado"><strong>Estado</strong></label>
+    <select id="habilitado" name="habilitado" class="form-control">
+      <option value="" {% if service.habilitado is none %}selected{% endif %}>Selecciona...</option>
+      <option value="True" {% if service.habilitado %}selected{% endif %}>Habilitado</option>
+      <option value="False" {% if not service.habilitado %}selected{% endif %}>Deshabilitado</option>
+    </select>
+
+    <br/>
+    <label for="palabra_eliminada"><strong>Desvincular palabras clave</strong></label>
+    <small class="form-text text-muted">Ingrese la palabra que desea desvincular</small>
+    <input type="text" id="palabra_eliminada" name="palabra_eliminada" placeholder="ej: salud" size="26" class="form-control">
+
+    <br/>
+    <label for="centro_eliminado"><strong>¿Querés eliminar este servicio de tu institución?</strong></label>
+    <select id="centro_eliminado" name="centro_eliminado" class="form-control">
+      <option value="No" selected>No</option>
+      <option value="Si">Sí</option>
+    </select>
+
+    <br/>
+    <button class="btn btn-info">Guardar cambios</button>
+  </form>
+
+</div>
+{% endblock %}

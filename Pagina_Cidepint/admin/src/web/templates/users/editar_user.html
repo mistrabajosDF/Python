@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+{% block title %}Editar Perfil{% endblock %}
+
+{% block content %}
+<div class="container py-5 justify-content-center">
+    <h1><strong>Mi Perfil</strong></h1>
+    <div class="link-container">
+        <a href="{{ url_for('home') }}" class="more-link">Ir al Inicio</a>
+    </div>
+
+    <h4><strong>Editar Perfil</strong></h4>
+    <h6>Complete los campos que desea modificar:</h6>
+
+    <form action="{{ url_for('users.update')}}" method="post">
+        <h6>Mail:</h6>
+        <input type="hidden" name="mail" value="{{ user.email }}">
+        <span>{{ user.email }}</span>
+        <br/>
+
+        <h6>Nombre:</h6>
+        <input type="text" name="nombre" value="{{ user.nombre }}" maxlength="50">
+
+        <h6>Apellido:</h6>
+        <input type="text" name="apellido" value="{{ user.apellido }}" maxlength="50">
+
+        <h6>Username:</h6>
+        <input type="text" name="username" value="{{ user.username }}" maxlength="50">
+
+        <h6>Para modificar la contraseña debe ingresar la anterior:</h6>
+        <input type="password" name="contra_ant" placeholder="Ingrese contraseña anterior" maxlength="50">
+        <input type="password" name="new_contra" placeholder="Ingrese nueva contraseña" maxlength="50">
+
+        <h6>Estado de tu cuenta:</h6>
+        <select name="activo">
+            <option value="" {% if user.activo is none %}selected{% endif %}>Selecciona</option>
+            <option value="True" {% if user.activo %}selected{% endif %}>Habilitada</option>
+            <option value="False" {% if not user.activo %}selected{% endif %}>Deshabilitada</option>
+        </select>
+
+        <br/><br/>
+        <button class="btn btn-info">Editar</button>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        {% block head %}
+            <link
+                rel="stylesheet"
+                href="{{ url_for('static', filename='css/error.css') }}"
+            />
+        {% endblock head %}
+        <title>Error!</title>
+    </head>
+    <body>
+        <div class="link-container">
+            <a href="{{ url_for('home') }}" class="more-link">Ir al Inicio</a>
+        </div>
+        <div class="content-container">
+            <img class="error404img" src="{{ url_for('static', filename='images/error404.png') }}" alt="">
+        </div>
+        <div class="content-bottom">
+            <p class="err_desc">{{ error_description }}</p>
+        </div>
+        <br>
+    </body>
+</html>

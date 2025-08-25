@@ -1,0 +1,85 @@
+* { margin: 0; padding: 0; }
+  
+  body { background: #dce5ede4; }
+  
+  .content-page {
+    margin: 15px;
+  }
+
+  .notificacion-flash{
+    display: flex;
+    justify-content: space-between;
+  }
+
+  div.flash{
+    font-family: Helvetica, sans-serif;
+    width: 95%;
+    padding: 5px;
+    margin-bottom: 0px;
+  }
+
+  div.flash.error{
+    border: 3px solid red;
+    background-color: #ff440070;
+  }
+
+  div.flash.success{
+    border: 3px solid green;
+    background-color: #acff2f70;
+  }
+
+  div.flash.info{
+    border: 3px solid blue;
+    background-color: #0000ff6e;
+  }
+
+  button.flash{
+    font-family: Helvetica, sans-serif;
+    width: 5%;
+    padding: 5px;
+    margin-bottom: 0px;
+    border-width: 3px 3px 3px 0;
+    border-style: solid;
+    font-size: 20px;
+    font-weight: bolder;
+  }
+
+  button.flash.error{
+    border-color: red;
+    background-color: #ff440070;
+  }
+
+  button.flash.success{
+    border-color: green;
+    background-color: #acff2f70;
+  }
+  
+  button.flash.info{
+    border-color: blue;
+    background-color: #0000ff6e;
+  }
+
+.navbar-custom{
+    background-color: #00BFBF;
+    color: #fff;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+footer {
+    flex-shrink: 0;
+    background-color: #00BFBF;
+    box-shadow: 0px -2px 4px rgba(0, 0, 0, 0.5);
+    margin-top: auto;
+}
+
+footer p {
+  margin: auto;
+  text-align: center;
+}
+
+.btn-custom {
+    padding: 0.25rem 1rem;
+    margin-right: 10px;
+    border-radius: 0.75rem;
+    background: linear-gradient(150deg, #00BFBF, #46389F);
+}

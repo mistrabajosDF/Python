@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+{% block title %}Error 401{% endblock %}
+
+{% block content %}
+<body style="background-color:black;">
+<div class="container py-5 justify-content-center">
+    <div class="content-bottom" align="center">
+        <font color="white">
+            <h1><strong>Error 401</strong></h1>
+        </font>
+    </div>
+        <div class="content-container" align="center">
+            <img class="error401img" src="{{ url_for('static', filename='images/401.png') }}" alt="">
+        </div>
+        <div class="content-bottom" align="center">
+            <font color="white">
+                <h3>{{ error_description }}</h3>
+            </font>
+        </div>
+    <div class="link-container" align="center">
+        <a href="{{ url_for('home') }}" class="more-link">Ir al Inicio </a>
+    </div>
+</div>
+</body>
+<br/>
+{% endblock %}
+

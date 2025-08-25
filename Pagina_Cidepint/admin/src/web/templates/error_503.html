@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+{% block title %}Error 503{% endblock %}
+
+{% block content %}
+<body style="background-color:black;">
+<div class="container py-5 justify-content-center">
+    <div class="content-bottom" align="center">
+        <font color="white">
+            <h1><strong>Error 503</strong></h1>
+        </font>
+    </div>
+        <div class="content-container" align="center">
+            <img class="error401img" src="{{ url_for('static', filename='images/503.png') }}" alt="">
+        </div>
+        <div class="content-bottom" align="center">
+            <font color="white">
+                <h3>{{ mensaje }}</h3>
+                <h5>{{ contacto }}</h5>
+            </font>
+        </div>
+</div>
+</body>
+{% endblock %}

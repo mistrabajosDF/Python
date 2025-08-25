@@ -1,0 +1,71 @@
+{% extends "layout.html" %}
+{% block title %}Usuarios{% endblock %}
+
+{% block content %}
+<div class="container py-5 justify-content-center">
+<h1><strong>Usuarios</strong></h1>
+<div class="link-container">
+    <a href="{{ url_for('home') }}" class="more-link">Ir al Inicio</a>
+</div>
+<br/>
+<h4><strong>Filtros de búsqueda</strong></h4>
+<form id="filtrar-form" method="POST" action="{{ url_for('users.filtrar_insti', id=institucion_actual.id) }}">
+        <label for="filtro_activo">Filtrar por estado:</label>
+        <select name="filtro_activo" id="filtro_activo">
+            <option selected value="">Todos</option>
+            <option value="True">Activo</option>
+            <option value="False">Inactivo</option>
+        </select>
+        <br/>
+        <label for="filtro_mail">Filtrar por mail:</label>
+        <input type="text" name="filtro_mail" id="filtro_mail">
+
+        <button class="btn btn-info"> Filtrar</button>
+        <button class="btn btn-primary" href= "{{ url_for('users.lista_insti') }}">Quitar Filtros</button>
+    </form>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Apellido</th>
+            <th scope="col">Mail</th>
+            <th scope="col">Username</th>
+            <th scope="col">Activo</th>
+            <th scope="col">Asignar Rol</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in users %}
+        <tr>
+            <th>{{ user.id }}</th>
+            <td>{{ user.nombre }}</td>
+            <td>{{ user.apellido }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.username }}</td>
+            <td>{{ user.activo }}</td>
+            <td>
+            <form action="{{ url_for('users.agregar_rol', id = user.id, id_institucion=institucion_actual.id) }}" method="post">
+                <select name="rol" id="rol">
+                    <option value="operator">Operador</option>
+                    <option value="admin">Administrador</option>
+                    <option value="owner">Dueño</option>
+                </select>
+                <input class="btn btn-primary" type="submit" value="Asignar">
+            </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+    {% set p = page | int %}
+    {% if (p>1) %}
+        <a href="{{ url_for('users.lista_insti', id_institucion=institucion_actual.id, page=page-1) }}">
+        <button class="btn btn-info" name="Anterior">Anterior</button></a>
+    {% endif %}
+
+    <a href="{{ url_for('users.lista_insti', id_institucion=institucion_actual.id, page=page+1) }}">
+    <button class="btn btn-info" name="Siguiente">Siguiente</button></a>
+</div>
+<br/>
+{% endblock %}

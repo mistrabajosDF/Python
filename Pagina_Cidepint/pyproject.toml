@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "grupo22-main"
+version = "0.1.0"
+description = ""
+authors = ["Daina F <day9311@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+
+# Flask y extensiones
+flask = "<3.0"                # Última versión compatible con Python 3.8 (2.3.x)
+flask-cors = "<4.0"           # 3.0.10 soporta Python 3.8
+flask-marshmallow = "<0.15"   # 0.14.0
+marshmallow = "<4.0"          # 3.x compatible
+
+# Autenticación y JWT
+authlib = "<1.4"              # 1.3.x soporta Python 3.8
+pyjwt = "<3.0"                # 2.x soporta Python 3.8
+cryptography = "<39"          # 38.0.4 funciona en Win+Py3.8 sin Rust
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+

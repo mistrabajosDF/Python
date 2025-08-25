@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+
+{% block title %}Inicio de sesión{% endblock %}
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+{% endblock %}
+
+{% block header %}{% endblock %}
+
+{% block content %}
+<div class="container_login">
+    <div class="volver">
+        <a href="{{ url_for('home')}}"><img src="{{ url_for('static', filename='images/logo_cuadrado.png') }}" alt="logo" width="60"></a>
+        <p>Volver</p>
+    </div>
+    <div class="formulario_login">
+        <div class="titulo_iniciar_sesion">Iniciar sesión</div>
+        <form action="{{ url_for('auth.authenticate') }}" method="post">
+            <div class="formulario_login_username">
+                <input type="email" name="email" placeholder="Correo electrónico" required />
+            </div>
+            <div class="formulario_login_username">
+                <input type="password" name="password" placeholder="Contraseña" required />
+            </div>       
+            <input class="formulario_login_button" type="submit" value="Iniciar sesion" />
+        </form>
+        <form action="{{ url_for('auth.login_with_google') }}" method="post">
+            <input class="formulario_login_button_google" type="submit" value="Iniciar sesion con Google" />
+        </form>
+
+{% endblock %}
+
+{% block footer %}{% endblock %}

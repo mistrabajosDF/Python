@@ -1,0 +1,82 @@
+{% extends "layout.html" %}
+{% block title %}PinturApp{% endblock %}
+{% block content %}
+<div class="container py-5 justify-content-center">
+    <center>
+        <h2><strong>Bienvenido a PinturApp</strong></h2>
+            {% if config.mantenimiento_modo %}
+                <h4><strong>El sitio se encuenta en mantenimiento</strong></h4>
+                <h4> {{config.mantenimiento_mensaje}} </h4>
+            {% else %}
+                <img class="logo" src="{{ url_for('static', filename='images/logo.png') }}" alt="">
+                <br>
+                <br>
+                {% if super_admin %}
+                <h4><strong>Funciones de administración</strong></h4>
+                </center>
+                <div class="row">
+                    <div class="col-sm-4 mb-3 mb-sm-0">
+                        <div class="card mb-3">
+                            <div class="row g-0">
+                                <div class="col-md-4">
+                                    <img src="{{ url_for('static', filename='images/') }}" class="card-img-top" alt="">
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Usuarios</h5>
+                                        <p class="card-text"><small class="text-muted">Eliminación y desactivación de cuenta</small></p>
+                                            <button class="btn btn-outline-primary">
+                                                <a href="{{ url_for('users.index', super_admin=super_admin) }}"><img src="{{ url_for('static', filename='images/flecha.png') }}" style="width: 40px; height: 40px;"></a>
+                                            </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-4 mb-3 mb-sm-0">
+                        <div class="card mb-3">
+                            <div class="row g-0">
+                                <div class="col-md-4">
+                                    <img src="{{ url_for('static', filename='images/') }}" class="card-img-top" alt="">
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Instituciones</h5>
+                                        <p class="card-text"><small class="text-muted">Creación y eliminación de instituciones</small></p>
+                                            <button class="btn btn-outline-primary">
+                                                <a href="{{ url_for('institutions.index', super_admin=super_admin) }}"><img src="{{ url_for('static', filename='images/flecha.png') }}" style="width: 40px; height: 40px;"></a>
+                                            </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-sm-4 mb-3 mb-sm-0">
+                        <div class="card mb-3">
+                            <div class="row g-0">
+                                <div class="col-md-4">
+                                    <img src="{{ url_for('static', filename='images/') }}" class="card-img-top" alt="">
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Configuración</h5>
+                                        <p class="card-text"><small class="text-muted">Configuración del sitio</small></p>
+                                        <button class="btn btn-outline-primary">
+                                                <a href="{{ url_for('configuration.index', super_admin=super_admin) }}"><img src="{{ url_for('static', filename='images/flecha.png') }}" style="width: 40px; height: 40px;"></a>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                {% endif %}
+            {% endif %}
+
+</div>
+
+{% endblock %}

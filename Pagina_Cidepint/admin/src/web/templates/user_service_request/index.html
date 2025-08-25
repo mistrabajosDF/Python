@@ -1,0 +1,117 @@
+{% extends "layout.html" %}
+
+{% block head %}
+    {{ super() }}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{{ url_for('static', filename='js/request_notes.js') }}"></script>
+{% endblock %}
+
+
+{% block title %}Solicitudes{% endblock %}
+
+{% block content %}
+<div class="container py-5 justify-content-center">
+    <h1>Solicitudes de {{ institucion_actual.nombre }}</h1>
+    <div class="link-container">
+        <a href="{{ url_for('institutions.home', id_institucion=institucion_actual.id)}}" class="more-link">Volver</a>
+    </div>
+
+    <form id="filtrar-form" method="POST" action="{{ url_for('solicitudes.filtrar_solicitudes', id_institucion=institucion_actual.id) }}">
+        <label for="filtro_tipo">Filtrar por Tipo:</label>
+        <select name="filtro_tipo" id="filtro_tipo">
+            <option selected value="">Todos</option>
+            <option value="Analisis">Análisis</option>
+            <option value="Consultoria">Consultoría</option>
+            <option value="Desarrollo">Desarrollo</option>
+        </select>
+
+        <label for="filtro_estado">Filtrar por Estado:</label>
+        <select name="filtro_estado" id="filtro_estado">
+            <option selected value="">Todos</option>
+            <option value="Aceptada">Aceptada</option>
+            <option value="Rechazada">Rechazada</option>
+            <option value="En proceso">En proceso</option>
+            <option value="Finalizada">Finalizada</option>
+            <option value="Cancelada">Cancelada</option>
+        </select>
+
+        <label for="filtro_cliente">Filtrar por Cliente:</label>
+        <input type="text" name="filtro_cliente" id="filtro_cliente">
+
+        <label for="filter-dates">Filtrar por Fecha:</label>
+        <input type="date" name="fecha_inicio" id="fecha_inicio">
+        <span> - </span>
+        <input type="date" name="fecha_fin" id="fecha_fin">
+
+        <input type="hidden" name="id_institucion" value="{{ institucion_actual.id }}">
+
+        <input type="submit" value="Filtrar">
+        <br/>
+        <br/>
+        <button class="btn btn-primary" href="{{ url_for('solicitudes.index', id_institucion=institucion_actual.id) }}">Quitar Filtros</button>
+    </form>
+
+    <br/>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Cliente</th>
+                <th scope="col">Tipo Servicio</th>
+                <th scope="col">Notas</th>
+                <th scope="col">Estado</th>
+                <th scope="col">Fecha Solicitud</th>
+                <th scope="col">Eliminar</th>
+                <th scope="col">Detalle/Editar</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for solicitud in solicitudes %}
+                <tr class="solicitud-row">
+                    <th>{{ solicitud.id }}</th>
+                    <td>{{ solicitud.user.nombre }} {{ solicitud.user.apellido }}</td>
+                    <td>{{ solicitud.service.tipo }}</td>
+                    <td>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#verNotas{{ solicitud.id }}" data-bs-id="{{solicitud.id}}">Ver</button>
+                        <div class="modal fade" id="verNotas{{solicitud.id}}" tabindex="-1" aria-labelledby="notasLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="notasLabel">Notas</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>{{ solicitud.status }}</td>
+                    <td>{{ solicitud.request_date }}</td>
+                    <td><a
+                        href="{{ url_for('solicitudes.delete', id = solicitud.id, id_institucion = institucion_actual.id) }}" onclick="return confirm('¿Desea eliminar la Solicitud?')">
+                        <button class="btn btn-danger" name="Eliminar">Eliminar</button></a>
+                    </td>
+                    <td><a
+                        href="{{ url_for('solicitudes.detalle', id = solicitud.id, id_institucion=institucion_actual.id) }}">
+                        <button class="btn btn-info" name="Editar">Editar</button></a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% set p = page | int %}
+    {% if (p>1) %}
+        <a href="{{ url_for('solicitudes.index', id_institucion=institucion_actual.id, page=page-1) }}">
+        <button class="btn btn-info" name="Anterior">Anterior</button></a>
+    {% endif %}
+
+    <a href="{{ url_for('solicitudes.index', id_institucion=institucion_actual.id, page=page+1) }}">
+    <button class="btn btn-info" name="Siguiente">Siguiente</button></a>
+</div>
+<br/>
+<br/>
+{% endblock %}

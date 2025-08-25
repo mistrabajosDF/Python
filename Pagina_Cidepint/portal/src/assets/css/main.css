@@ -1,0 +1,13 @@
+@import './base.css';
+@import './header_footer.css';
+@import './login_signin.css';
+@import './services.css';
+
+body { background: #dce5ede4; }
+
+#app {
+  
+  margin: 0 auto;
+  padding: 0;
+
+}

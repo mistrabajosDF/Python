@@ -1,0 +1,101 @@
+{% extends "layout.html" %}
+{% block title %}Instituciones{% endblock %}
+
+{% block content %}
+<div class="container py-5 justify-content-center">
+<h1><strong>Instituciones</strong></h1>
+<div class="link-container">
+    <a href="{{ url_for('home') }}" class="more-link">Ir al Inicio</a>
+</div>
+<br/>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Información</th>
+            <th scope="col">Direccion</th>
+            <th scope="col">Localización</th>
+            <th scope="col">Web</th>
+            <th scope="col">Días y horarios</th>
+            <th scope="col">Contacto</th>
+            <th scope="col">Habilitada</th>
+            <th scope="col">Palabras clave</th>
+            <th scope="col">Eliminar</th>
+        </tr>
+    </thead>
+    <tbody>  
+        {% for institution in institutions %}
+        <tr>
+            <th>{{ institution.id }}</th>
+            <td>{{ institution.nombre }}</td>
+            <td>{{ institution.informacion }}</td>
+            <td>{{ institution.direccion }}</td>
+            <td>{{ institution.localizacion }}</td>
+            <td>{{ institution.paginaweb }}</td>
+            <td>{{ institution.diasyhorarios }}</td>
+            <td>{{ institution.contacto }}</td>
+            <td>{{ institution.habilitada }}</td>
+            <td>{% for palabra in institution.palabrasclave %}
+                <li><a> {{ palabra.name }} </a></li>
+            {% endfor %}
+            </td>
+            <td><a
+                    href="{{ url_for('institutions.delete', id = institution.id) }}" onclick="return confirm('¿Desea eliminar la institución?')">
+                <button class="btn btn-danger" name="Eliminar">Eliminar</button></a>
+
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+    {% set p = page | int %}
+    {% if (p>1) %}
+        <a href="{{ url_for('institutions.index', page=page-1) }}">
+        <button class="btn btn-info" name="Anterior">Anterior</button></a>
+    {% endif %}
+
+    <a href="{{ url_for('institutions.index', page=page+1) }}">
+    <button class="btn btn-info" name="Siguiente">Siguiente</button></a>
+<br/>
+<h4><strong>Añadir institución</strong></h4>
+<form action="{{ url_for('institutions.add')}}" method="post">
+
+    <h6>Nombre:</h6>
+    <input type="text" name="nombre" placeholder="Ingrese el nombre" required maxlength="50">
+
+    <h6>Información:</h6>
+    <input type="text" name="informacion" placeholder="Ingrese la información" maxlength="100">
+
+    <h6>Dirección:</h6>
+    <input type="text" name="direccion" placeholder="Ingrese la dirección" maxlength="100">
+
+    <h6>Localización:</h6>
+    <input type="text" name="localizacion" placeholder="Ingrese las coordenadas" required maxlength="100">
+
+    <h6>Página web:</h6>
+    <input type="text" name="paginaweb" placeholder="Ingrese la página" maxlength="50">
+
+    <h6>Días y horarios:</h6>
+    <input type="text" name="diasyhorarios" placeholder="Ingrese días y horarios" maxlength="100">
+
+    <h6>Contacto:</h6>
+    <input type="text" name="contacto" placeholder="Ingrese el contacto" maxlength="50">
+
+    <h6>Palabras clave:</h6>
+    <small>Aclaraciones pertinentes: deben ingresarse separadas por coma</small>
+    <input type="text" name="palabrasclave" placeholder="palabra1, palabra2, ..." size="35">
+
+    <h6>Estado:</h6>
+    <select name="habilitada">
+        <option value="True" selected>Habilitada</option>
+        <option value="False">Deshabilitada</option>
+    </select>
+
+    <br/><br/>
+    <button class="btn btn-info">Añadir</button>
+</form>
+<br/>
+</div>
+
+{% endblock %}
